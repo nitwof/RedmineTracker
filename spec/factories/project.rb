@@ -1,17 +1,12 @@
 FactoryGirl.define do
   factory :project do
-    id 64
-    name 'Delivery GURU'
-    identifier 'deliv'
-    description 'Создание системы автоматизации доставки'
+    sequence(:id)
+    sequence(:name) { |n| "Project #{n}" }
+    sequence(:identifier) { |n| "#{n}#{n}#{n}#{n}#{n}" }
+    sequence(:description) { |n| "Description for project #{n}" }
+    homepage ''
     status 1
-    created_at Time.current
-    updated_at Time.current
-    association :parent, factory: :project_parent
-  end
-
-  factory :project_parent do
-    id 8
-    name 'NYAN'
+    created_on 10.hours.ago
+    updated_on 10.hours.ago
   end
 end
