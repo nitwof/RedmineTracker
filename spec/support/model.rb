@@ -53,7 +53,8 @@ shared_examples 'model' do |model|
     end
 
     it 'uses store' do
-      expect(Store::YAML.instance).to receive(:find).with(model.table, '1234567890')
+      expect(Store::YAML.instance).to receive(:find).with(model.table,
+                                                          '1234567890')
       model.find('1234567890')
     end
   end
@@ -79,7 +80,8 @@ shared_examples 'model' do |model|
     end
 
     it 'uses store' do
-      expect(Store::YAML.instance).to receive(:select).with(model.table, id: '1234567890')
+      expect(Store::YAML.instance).to receive(:select).with(model.table,
+                                                            id: '1234567890')
       model.select(id: '1234567890')
     end
   end
@@ -158,7 +160,8 @@ shared_examples 'model' do |model|
 
       it 'uses store insert' do
         object = model.new
-        expect(Store::YAML.instance).to receive(:insert).with(model.table, object)
+        expect(Store::YAML.instance).to receive(:insert).with(model.table,
+                                                              object)
         object.save
       end
 
@@ -183,7 +186,8 @@ shared_examples 'model' do |model|
 
       it 'uses store update' do
         object[:key] = 'value'
-        expect(Store::YAML.instance).to receive(:update).with(model.table, object.id, object)
+        expect(Store::YAML.instance).to receive(:update).with(model.table,
+                                                              object.id, object)
         object.save
       end
 
@@ -224,14 +228,15 @@ shared_examples 'model' do |model|
 
     it 'uses store delete' do
       object = model.create
-      expect(Store::YAML.instance).to receive(:delete).with(model.table, object.id)
+      expect(Store::YAML.instance).to receive(:delete).with(model.table,
+                                                            object.id)
       object.destroy
     end
   end
 
   def fill_table(model, count)
-    (1..count).each do |i|
-      model.create()
+    (1..count).each do
+      model.create
     end
   end
 end

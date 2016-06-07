@@ -21,7 +21,8 @@ describe Action do
       end
 
       it 'cashes project' do
-        expect(Project).to receive(:find).with(action.project_id).and_return(project)
+        expect(Project).to receive(:find)
+          .with(action.project_id).and_return(project)
         action.project
         expect(Project).not_to receive(:find)
         expect(action.project).to eq project
