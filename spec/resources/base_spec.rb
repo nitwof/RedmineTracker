@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'resources/base_resource'
 
 describe BaseResource do
   it 'should has site' do

@@ -1,8 +1,6 @@
-require 'stores/yaml'
-
 class BaseModel
   @store = Store::YAML.instance
-  @table = 'base'
+  @table = :base
 
   attr_accessor :id, :created_at, :updated_at
 
@@ -10,7 +8,7 @@ class BaseModel
     attr_reader :store, :table
 
     def all
-      store.select table
+      store.select table || []
     end
 
     def find(id)

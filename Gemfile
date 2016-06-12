@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'green_shoes'
 gem 'activeresource'
 gem 'dotenv'
+gem 'require_all'
 
 gem 'rspec'
 gem 'simplecov'

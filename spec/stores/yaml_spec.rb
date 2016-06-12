@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'stores/yaml'
 
 describe Store::YAML do
   let(:store) { Store::YAML.instance }

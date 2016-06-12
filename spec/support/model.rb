@@ -11,12 +11,6 @@ shared_examples 'model' do |model|
     expect(model).to respond_to :table
   end
 
-  context 'table is not exists' do
-    it 'creates table' do
-      expect(model.store.exists?(model.table)).to be_truthy
-    end
-  end
-
   describe '.all' do
     before(:all) { model.destroy_all }
 
