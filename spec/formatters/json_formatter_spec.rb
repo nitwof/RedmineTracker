@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'formatters/json_formatter'
 
 describe JsonFormatter do
   let(:collection_name) { 'collection' }

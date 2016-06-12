@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'resources/user'
 
 describe User do
   it 'should inherit BaseResource' do
@@ -10,6 +9,13 @@ describe User do
     it 'gets current user' do
       expect(User).to receive(:find).with(:current)
       User.current
+    end
+  end
+
+  describe '#name' do
+    it 'returns full name' do
+      user = User.new(firstname: 'Firstname', lastname: 'Lastname')
+      expect(user.name).to eq 'Firstname Lastname'
     end
   end
 end
