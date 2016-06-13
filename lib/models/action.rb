@@ -41,7 +41,7 @@ class Action < BaseModel
   end
 
   def spent_from_start
-    return 0.0 if started_at.nil? || stopped_at == 0
+    return 0.0 if started_at.nil? || stopped_at.nil?
     ((@stopped_at - @started_at) / 60 / 60).round(2)
   end
 end

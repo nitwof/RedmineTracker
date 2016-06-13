@@ -1,4 +1,5 @@
 require 'simplecov'
+require 'timecop'
 require 'require_all'
 
 SimpleCov.start do

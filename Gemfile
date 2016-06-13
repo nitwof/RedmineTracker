@@ -5,7 +5,8 @@ gem 'dotenv'
 gem 'require_all'
 
 gem 'rspec'
-gem 'simplecov'
+gem 'timecop'
 gem 'factory_girl'
+gem 'simplecov'
 
 gem 'rubocop'
