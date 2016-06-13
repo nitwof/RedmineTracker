@@ -21,8 +21,11 @@ GEM
     dotenv (2.1.1)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
+    fxruby (1.6.34)
+      mini_portile (~> 0.6)
     i18n (0.7.0)
     json (1.8.3)
+    mini_portile (0.6.2)
     minitest (5.9.0)
     parser (2.3.1.2)
       ast (~> 2.2)
@@ -69,6 +72,7 @@ DEPENDENCIES
   activeresource
   dotenv
   factory_girl
+  fxruby
   require_all
   rspec
   rubocop
