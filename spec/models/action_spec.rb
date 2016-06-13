@@ -112,7 +112,7 @@ describe Action do
     context 'started_at and stopped_at is not nil' do
       let(:action) do
         build(:action, started_at: Time.new(2016, 6, 1, 10, 0, 0),
-              stopped_at: Time.new(2016, 6, 1, 12, 30, 0))
+                       stopped_at: Time.new(2016, 6, 1, 12, 30, 0))
       end
 
       it 'returns time spent from start' do
