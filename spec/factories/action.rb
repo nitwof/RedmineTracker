@@ -5,5 +5,6 @@ FactoryGirl.define do
     stopped_at nil
     sequence(:project_id)
     sequence(:issue_id)
+    sequence(:activity_id)
   end
 end

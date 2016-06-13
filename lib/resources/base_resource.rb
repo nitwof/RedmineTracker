@@ -1,13 +1,14 @@
-require 'dotenv'
-Dotenv.load
-
 class BaseResource < ActiveResource::Base
-  self.site = ENV['URL']
-  self.user = ENV['RUSERNAME']
-  self.password = ENV['RPASSWORD']
   self.format = JsonFormatter.new(:collection_name)
+  self.include_root_in_json = true
 
-  headers['X-Redmine-API-Key'] = ENV['API_KEY']
+  def self.load_settings
+    self.site = Settings.url
+    TimeEntryActivity.site = Settings.url
+    self.user = Settings.username
+    self.password = Settings.password
+    headers['X-Redmine-API-Key'] = Settings.api_key
+  end
 
   def serialize
     as_json.symbolize_keys

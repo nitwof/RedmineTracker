@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'qtbindings'
 gem 'activeresource'
-gem 'dotenv'
 gem 'require_all'
 
 gem 'rspec'

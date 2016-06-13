@@ -8,7 +8,7 @@ class BaseModel
     attr_reader :store, :table
 
     def all
-      store.select table || []
+      store.select(table) || []
     end
 
     def find(id)

@@ -44,6 +44,7 @@ module Store
 
     def find(table, id)
       data = store.transaction { store[table.to_s] }
+      return nil if data.nil?
       data.each do |row|
         return row if row[:id] == id
       end
@@ -52,7 +53,7 @@ module Store
 
     def select(table, params = {})
       data = store.transaction { store[table.to_s] }
-      return data if data.nil?
+      return nil if data.nil?
       data.delete_if do |row|
         !(params.select { |key, value| row[key] != value }).empty?
       end

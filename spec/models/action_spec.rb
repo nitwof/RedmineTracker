@@ -34,7 +34,7 @@ describe Action do
       let(:action) { build(:action) }
       let(:issue) { build(:issue, id: action.issue_id) }
 
-      it 'returns project' do
+      it 'returns issue' do
         expect(Issue).to receive(:find).with(action.issue_id)
         action.issue
       end
@@ -45,6 +45,27 @@ describe Action do
 
       it 'returns nil' do
         expect(action.issue).to be_nil
+      end
+    end
+  end
+
+  describe '#activity' do
+    context 'activity id is defined' do
+      let(:action) { build(:action) }
+      let(:activity) { build(:time_entry_activity, id: action.activity_id) }
+
+      it 'returns activity' do
+        expect(TimeEntryActivity).to receive(:find_by_id)
+          .with(action.activity_id)
+        action.activity
+      end
+    end
+
+    context 'activity id is not defined' do
+      let(:action) { build(:action, activity_id: nil) }
+
+      it 'returns nil' do
+        expect(action.activity).to be_nil
       end
     end
   end

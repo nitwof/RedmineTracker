@@ -14,6 +14,7 @@ describe User do
 
   describe '#name' do
     it 'returns full name' do
+      User.site = ''
       user = User.new(firstname: 'Firstname', lastname: 'Lastname')
       expect(user.name).to eq 'Firstname Lastname'
     end
