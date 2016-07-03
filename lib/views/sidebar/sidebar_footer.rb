@@ -15,4 +15,12 @@ class SidebarFooter < Qt::Widget
     @add_button.setMinimumHeight(height)
     layout.addWidget @add_button
   end
+
+  def to_online
+    @add_button.setEnabled true
+  end
+
+  def to_offline
+    @add_button.setEnabled false
+  end
 end

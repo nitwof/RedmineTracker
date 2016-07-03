@@ -1,6 +1,8 @@
 class ActionsShow < Qt::Widget
   attr_reader :timer
 
+  signals :socket_error
+
   def initialize(parent = nil, width = 0, height = 0)
     super(parent)
     setMinimumWidth(width) if width.present?
@@ -37,7 +39,7 @@ class ActionsShow < Qt::Widget
   end
 
   def init_activity_ui
-    @activity = Qt::Label.new('Activity', self)
+    @activity = Qt::Label.new('Activity:', self)
     @activity.setFont Qt::Font.new('Arial', 16)
     @activity.resize(width, 20)
     @activity
@@ -58,9 +60,13 @@ class ActionsShow < Qt::Widget
   end
 
   def show_action(action)
-    @project.text = "Project: #{action.project.try(:name)}"
-    @issue.text = "Issue: #{action.issue.try(:subject)}"
-    @activity.text = "Activity: #{action.activity.try(:name)}"
+    begin
+      @project.text = "Project: #{action.project.try(:name)}"
+      @issue.text = "Issue: #{action.issue.try(:subject)}"
+      @activity.text = "Activity: #{action.activity.try(:name)}"
+    rescue SocketError
+      socket_error
+    end
     refresh_timestamps(action)
     action.started? ? @timer.start : @timer.stop
   end
@@ -73,5 +79,11 @@ class ActionsShow < Qt::Widget
       @time_from_start.text = '0.0'
       @spent_on.text = action.spent_on.to_s
     end
+  end
+
+  def to_offline
+    @project.text = ''
+    @issue.text = ''
+    @activity.text = ''
   end
 end

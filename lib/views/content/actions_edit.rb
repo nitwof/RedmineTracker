@@ -1,6 +1,7 @@
 class ActionsEdit < Qt::Widget
   attr_reader :name_edit, :project_edit, :issue_edit, :activity_edit
 
+  signals :socket_error
   slots 'project_selected(int)'
 
   def initialize(parent = nil, width = 0, height = 0)
@@ -29,7 +30,6 @@ class ActionsEdit < Qt::Widget
     name_label.setFont Qt::Font.new('Arial', 16)
     @name_edit = FormLine.new(Qt::LineEdit.new, name_label,
                               self, width - 10, 50)
-    @name_edit
   end
 
   def init_project_edit_ui
@@ -37,7 +37,6 @@ class ActionsEdit < Qt::Widget
     project_label.setFont Qt::Font.new('Arial', 16)
     @project_edit = FormLine.new(Qt::ComboBox.new, project_label,
                                  self, width - 10, 50)
-    @project_edit
   end
 
   def init_issue_edit_ui
@@ -45,7 +44,6 @@ class ActionsEdit < Qt::Widget
     issue_label.setFont Qt::Font.new('Arial', 16)
     @issue_edit = FormLine.new(Qt::ComboBox.new, issue_label,
                                self, width - 10, 50)
-    @issue_edit
   end
 
   def init_activity_edit_ui
@@ -53,13 +51,22 @@ class ActionsEdit < Qt::Widget
     activity_label.setFont Qt::Font.new('Arial', 16)
     @activity_edit = FormLine.new(Qt::ComboBox.new, activity_label,
                                   self, width - 10, 50)
-    @activity_edit
   end
 
   def init_models
+    init_projects
+    init_activities
+  rescue SocketError
+    socket_error
+  end
+
+  def init_projects
     Project.all.each do |project|
       @project_edit.widget.addItem(project.name, Qt::Variant.new(project.id))
     end
+  end
+
+  def init_activities
     TimeEntryActivity.all.each do |activity|
       @activity_edit.widget.addItem(activity.name, Qt::Variant.new(activity.id))
     end
@@ -89,13 +96,29 @@ class ActionsEdit < Qt::Widget
     @activity_edit.widget.itemData(index).to_i
   end
 
+  def to_online
+    @project_edit.widget.setEnabled true
+    @issue_edit.widget.setEnabled true
+    @activity_edit.widget.setEnabled true
+  end
+
+  def to_offline
+    @project_edit.widget.setEnabled false
+    @issue_edit.widget.setEnabled false
+    @activity_edit.widget.setEnabled false
+  end
+
   protected
 
   def project_selected(index)
     project_id = sender.itemData(index).to_i
     @issue_edit.widget.clear
-    Issue.where(project_id: project_id).each do |issue|
-      @issue_edit.widget.addItem(issue.subject, Qt::Variant.new(issue.id))
+    begin
+      Issue.where(project_id: project_id).each do |issue|
+        @issue_edit.widget.addItem(issue.subject, Qt::Variant.new(issue.id))
+      end
+    rescue SocketError
+      socket_error
     end
   end
 end

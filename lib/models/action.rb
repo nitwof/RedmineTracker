@@ -54,11 +54,4 @@ class Action < BaseModel
     return 0.0 if started_at.nil? || stopped_at.nil?
     ((@stopped_at - @started_at) / 60 / 60).round(2)
   end
-
-  def create_time_entry
-    return if spent_from_start == 0.0
-    TimeEntry.create(issue_id: @issue_id, hours: time_from_start,
-                     comments: @name.force_encoding('UTF-8'),
-                     activity_id: @activity_id)
-  end
 end

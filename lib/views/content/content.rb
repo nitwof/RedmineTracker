@@ -1,7 +1,8 @@
 class Content < Qt::Widget
-  signals 'action_changed(QString)'
+  signals 'action_changed(QString)', :socket_error
   slots 'show_action(QString)', :start_action, :stop_action,
-        :to_show, :to_edit, :to_new, :save_action, :refresh_show_timestamps
+        :to_show, :to_edit, :to_new, :save_action, :refresh_show_timestamps,
+        :handle_socket_error
 
   def initialize(parent = nil, width = 0, height = 0)
     super(parent)
@@ -39,6 +40,10 @@ class Content < Qt::Widget
   def connect_widgets
     connect(@action_show.timer, SIGNAL(:timeout),
             self, SLOT(:refresh_show_timestamps))
+    connect(@action_show, SIGNAL(:socket_error),
+            self, SLOT(:handle_socket_error))
+    connect(@action_edit, SIGNAL(:socket_error),
+            self, SLOT(:handle_socket_error))
     connect_show_footer
     connect_edit_footer
   end
@@ -107,6 +112,16 @@ class Content < Qt::Widget
     @action_edit.show_action @current_action
   end
 
+  def to_online
+    refresh
+    @action_edit.to_online
+  end
+
+  def to_offline
+    @action_show.to_offline
+    @action_edit.to_offline
+  end
+
   protected
 
   def refresh_views
@@ -135,7 +150,19 @@ class Content < Qt::Widget
     @action_show.timer.stop
     @current_action.stop
     @current_action.save
-    @current_action.create_time_entry
+    save_to_remote
     refresh_views
+  end
+
+  def save_to_remote
+    t = Transaction.save_action @current_action
+    t.handle
+  rescue SocketError
+    t.save
+    socket_error
+  end
+
+  def handle_socket_error
+    socket_error
   end
 end
