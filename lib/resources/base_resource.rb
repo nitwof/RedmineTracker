@@ -21,19 +21,22 @@ class BaseResource < ActiveResource::Base
 
   def self.safe_find(*arguments)
     find(*arguments)
-  rescue SocketError
+  rescue SocketError, ActiveResource::ForbiddenAccess,
+         ActiveResource::ResourceNotFound, ActiveResource::UnauthorizedAccess
     nil
   end
 
   def self.safe_all(*args)
     all(*args)
-  rescue SocketError
+  rescue SocketError, ActiveResource::ForbiddenAccess,
+         ActiveResource::ResourceNotFound, ActiveResource::UnauthorizedAccess
     []
   end
 
   def self.safe_where(clauses = {})
     where(clauses)
-  rescue SocketError
+  rescue SocketError, ActiveResource::ForbiddenAccess,
+         ActiveResource::ResourceNotFound, ActiveResource::UnauthorizedAccess
     []
   end
 
