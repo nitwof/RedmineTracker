@@ -24,25 +24,24 @@ class ActionsShow < Qt::Widget
     @timer.setInterval(5000)
   end
 
+  def create_label(name)
+    label = Qt::Label.new(name, self)
+    label.setFont Qt::Font.new('Arial', 16)
+    label.resize(width, 20)
+    label.setWordWrap true
+    label
+  end
+
   def init_project_ui
-    @project = Qt::Label.new('Project:', self)
-    @project.setFont Qt::Font.new('Arial', 16)
-    @project.resize(width, 20)
-    @project
+    @project = create_label('Project:')
   end
 
   def init_issue_ui
-    @issue = Qt::Label.new('Issue:', self)
-    @issue.setFont Qt::Font.new('Arial', 16)
-    @issue.resize(width, 20)
-    @issue
+    @issue = create_label('Issue:')
   end
 
   def init_activity_ui
-    @activity = Qt::Label.new('Activity:', self)
-    @activity.setFont Qt::Font.new('Arial', 16)
-    @activity.resize(width, 20)
-    @activity
+    @activity = create_label('Activity:')
   end
 
   def init_time_from_start_ui

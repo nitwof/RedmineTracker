@@ -58,6 +58,7 @@ class ActionsEdit < Qt::Widget
     @issue_helper.setFont Qt::Font.new('Arial', 14)
     @issue_helper.setStyleSheet 'QLabel { color: black }'
     @issue_helper.setMinimumWidth(width - 10)
+    @issue_helper.setWordWrap true
     @issue_helper
   end
 

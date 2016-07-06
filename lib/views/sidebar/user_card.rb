@@ -11,14 +11,24 @@ class UserCard < Qt::PushButton
 
   def init_ui
     layout = Qt::VBoxLayout.new(self)
+    layout.addWidget init_name_ui
+    layout.addWidget init_mail_ui
+  end
+
+  def init_name_ui
     @name = Qt::Label.new(@user.try(:name), self)
-    @mail = Qt::Label.new(@user.try(:mail), self)
     @name.setAlignment(Qt::AlignCenter | Qt::AlignBottom)
     @name.setFont Qt::Font.new('Arial', 14, Qt::Font::Bold)
     @name.setStyleSheet 'QLabel { color: black }'
+    @name.setWordWrap true
+    @name
+  end
+
+  def init_mail_ui
+    @mail = Qt::Label.new(@user.try(:mail), self)
     @mail.setAlignment(Qt::AlignCenter)
-    layout.addWidget @name
-    layout.addWidget @mail
+    @mail.setWordWrap true
+    @mail
   end
 
   def refresh

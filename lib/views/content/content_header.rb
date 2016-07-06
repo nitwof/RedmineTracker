@@ -13,6 +13,7 @@ class ContentHeader < Qt::Widget
     @header.setAlignment(Qt::AlignCenter | Qt::AlignCenter)
     @header.setFont Qt::Font.new('Arial', 15, Qt::Font::Bold)
     @header.setStyleSheet 'QLabel { color: black }'
+    @header.setWordWrap true
     layout.addWidget @header
   end
 
