@@ -77,7 +77,7 @@ class ActionsShow < Qt::Widget
       @spent_on.text = (action.spent_on + action.time_from_start).round(2).to_s
     else
       @time_from_start.text = '0.0'
-      @spent_on.text = action.spent_on.to_s
+      @spent_on.text = action.spent_on.round(2).to_s
     end
   end
 
