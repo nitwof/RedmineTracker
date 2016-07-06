@@ -22,6 +22,10 @@ class ActionsEdit < Qt::Widget
     layout.addWidget init_issue_helper_ui
     layout.addWidget init_activity_edit_ui
 
+    connect_ui
+  end
+
+  def connect_ui
     connect(@issue_edit.widget, SIGNAL('textChanged(QString)'),
             self, SLOT('issue_edit_finished(QString)'))
   end
@@ -44,7 +48,7 @@ class ActionsEdit < Qt::Widget
     issue_label = Qt::Label.new('Issue:', self)
     issue_label.setFont Qt::Font.new('Arial', 16)
     issue_line = Qt::LineEdit.new
-    issue_line.setValidator Qt::IntValidator.new(1, 999999999, self)
+    issue_line.setValidator Qt::IntValidator.new(1, 999_999_999, self)
     @issue_edit = FormLine.new(issue_line, issue_label,
                                self, width - 10, 50)
   end
