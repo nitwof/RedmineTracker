@@ -150,7 +150,7 @@ class Content < Qt::Widget
     @action_show.timer.stop
     @current_action.stop
     @current_action.save
-    save_to_remote
+    save_to_remote if @current_action.time_from_start != 0.0
     refresh_views
   end
 
