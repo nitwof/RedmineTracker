@@ -1,17 +1,21 @@
 class Content < Qt::Widget
   signals 'action_changed(QString)', :socket_error
   slots 'show_action(QString)', :start_action, :stop_action,
-        :to_show, :to_edit, :to_new, :save_action, :refresh_show_timestamps,
-        :handle_socket_error
+        :to_show, :to_edit, :to_new, :delete_action, :save_action,
+        :refresh_show_timestamps, :handle_socket_error
 
   def initialize(parent = nil, width = 0, height = 0)
     super(parent)
     setMinimumWidth(width) if width.present?
     setMinimumHeight(height) if height.present?
-    @current_action = Action.all.first
-    @current_action_id = @current_action.try(:id)
+    init_current_action
     init_ui
     @current_action.present? ? to_show : hide_all
+  end
+
+  def init_current_action
+    @current_action = Action.all.first
+    @current_action_id = @current_action.try(:id)
   end
 
   def init_ui
@@ -60,6 +64,8 @@ class Content < Qt::Widget
   def connect_edit_footer
     connect(@action_edit_footer.cancel_button, SIGNAL(:clicked),
             self, SLOT(:to_show))
+    connect(@action_edit_footer.delete_button, SIGNAL(:clicked),
+            self, SLOT(:delete_action))
     connect(@action_edit_footer.save_button, SIGNAL(:clicked),
             self, SLOT(:save_action))
   end
@@ -85,6 +91,7 @@ class Content < Qt::Widget
     refresh_views
     @action_edit.show
     @action_edit_footer.show
+    @action_edit_footer.delete_button.show
     @action_show.hide
     @action_show_footer.hide
   end
@@ -92,6 +99,14 @@ class Content < Qt::Widget
   def to_new
     @current_action = Action.new
     to_edit
+    @action_edit_footer.delete_button.hide
+  end
+
+  def delete_action
+    @current_action.destroy
+    init_current_action
+    action_changed(@current_action_id)
+    to_show
   end
 
   def save_action

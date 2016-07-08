@@ -1,5 +1,5 @@
 class ActionsEditFooter < Qt::Widget
-  attr_reader :cancel_button, :save_button
+  attr_reader :cancel_button, :delete_button, :save_button
 
   def initialize(parent = nil, width = 0, height = 0)
     super(parent)
@@ -11,11 +11,21 @@ class ActionsEditFooter < Qt::Widget
   def init_ui
     layout = Qt::HBoxLayout.new(self)
     layout.setContentsMargins(0, 0, 0, 0)
-    @cancel_button = Qt::PushButton.new('Cancel', self)
-    @save_button = Qt::PushButton.new('Save', self)
-    @cancel_button.setMinimumHeight(height)
-    @save_button.setMinimumHeight(height)
+
+    @cancel_button = create_button('Cancel')
+    @delete_button = create_button('Delete')
+    @save_button = create_button('Save')
+
     layout.addWidget @cancel_button
+    layout.addWidget @delete_button
     layout.addWidget @save_button
+  end
+
+  private
+
+  def create_button(text)
+    button = Qt::PushButton.new(text, self)
+    button.setMinimumHeight(height)
+    button
   end
 end
