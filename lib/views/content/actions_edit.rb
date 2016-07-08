@@ -90,7 +90,9 @@ class ActionsEdit < Qt::Widget
 
   def show_action(action)
     @name_edit.widget.text = action.name
-    @project_edit.widget.currentText = action.project_id
+    @activity_edit.widget.currentIndex = find_activity_item(action.activity_id)
+    @issue_edit.widget.text = action.issue_id
+    @project_edit.widget.currentIndex = find_project_item(action.project_id)
   end
 
   def name
@@ -127,6 +129,13 @@ class ActionsEdit < Qt::Widget
   def find_project_item(project_id)
     @project_edit.widget.count.times do |i|
       return i if @project_edit.widget.itemData(i).to_i == project_id.to_i
+    end
+    nil
+  end
+
+  def find_activity_item(activity_id)
+    @activity_edit.widget.count.times do |i|
+      return i if @activity_edit.widget.itemData(i).to_i == activity_id.to_i
     end
     nil
   end
