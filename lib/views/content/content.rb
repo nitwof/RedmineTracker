@@ -152,7 +152,7 @@ class Content < Qt::Widget
 
   def show_action(action_id)
     @current_action_id = action_id
-    to_show
+    @current_action_id.present? ? to_show : hide_all
   end
 
   def start_action
