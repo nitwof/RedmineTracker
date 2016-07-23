@@ -8,8 +8,6 @@ end
 
 require_all 'lib'
 
-Store::YAML.instance.store = YAML::Store.new 'RT.test.store'
-
 RSpec.configure do |config|
   config.order = 'random'
 

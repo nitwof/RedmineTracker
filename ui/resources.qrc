@@ -1,0 +1,22 @@
+<RCC>
+  <qresource prefix="favourite">
+    <file>favourite.png</file>
+    <file>not_favourite.png</file>
+  </qresource>
+  <qresource prefix="timer_control">
+    <file>play.png</file>
+    <file>pause.png</file>
+    <file>stop.png</file>
+  </qresource>
+  <qresource prefix="content">
+    <file>save.png</file>
+    <file>back.png</file>
+    <file>add.png</file>
+    <file>edit.png</file>
+    <file>refresh.png</file>
+    <file>browse.png</file>
+  </qresource>
+  <qresource prefix="animations">
+    <file>loader.gif</file>
+  </qresource>
+</RCC>
