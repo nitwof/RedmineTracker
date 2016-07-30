@@ -1,12 +1,13 @@
 require 'simplecov'
 require 'timecop'
-require 'require_all'
+
+ENV['RT_ENV'] = 'test'
+
+require './config/environment'
 
 SimpleCov.start do
   add_filter 'spec/'
 end
-
-require_all 'lib'
 
 RSpec.configure do |config|
   config.order = 'random'

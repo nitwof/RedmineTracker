@@ -1,6 +1,4 @@
-require 'Qt'
-require 'require_all'
-require_all 'lib'
+require './config/environment'
 
 # app = Qt::Application.new ARGV
 # Application.new(app.desktop.screen)

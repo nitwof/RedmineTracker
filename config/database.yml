@@ -1,0 +1,9 @@
+default:
+  adapter: sqlite3
+  database: db/RT.sqlite3
+  pool: 5
+
+test:
+  adapter: sqlite3
+  database: db/RT.test.sqlite3
+  pool: 5
