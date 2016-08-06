@@ -1,2 +1,4 @@
-class Project < BaseResource
+module Resource
+  class Project < Base
+  end
 end

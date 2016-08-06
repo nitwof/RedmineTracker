@@ -2,3 +2,5 @@
 .env
 coverage
 *.sqlite3
+*.sublime-project
+*.sublime-workspace

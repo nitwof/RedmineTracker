@@ -2,7 +2,7 @@ class CreateProjects < ActiveRecord::Migration
   def change
     create_table :projects do |t|
       t.integer :remote_id, null: false, index: true
-      t.string :name
+      t.string :name, null: false
       t.string :identifier
       t.text :description
       t.integer :status

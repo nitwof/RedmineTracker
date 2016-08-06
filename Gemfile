@@ -16,3 +16,5 @@ gem 'factory_girl'
 gem 'simplecov'
 
 gem 'rubocop'
+
+gem 'annotate'
